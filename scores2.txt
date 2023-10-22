@@ -1,0 +1,8 @@
+anna 67 hard
+Alexa  80.0 easy
+mia 56 hard
+Alex  76.0 easy
+johan 67 medium
+yusuf 57 easy
+bebe 78 easy
+mama 78 medium
