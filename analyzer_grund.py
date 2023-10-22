@@ -52,6 +52,7 @@ def count_words_and_letters(line):
 
 def get_report_per_line(line):
     print(line)
+    wrong_words_tuples = []
     line_input, elapsed_time = get_input_and_time()
     line_words, word_count, letter_count = count_words_and_letters(line)
     input_words = line_input.strip().split()
@@ -119,7 +120,7 @@ def get_wrong_entered_elements(list_of_elements):
                 else:
                      extra_list[element[1]] = 1
     wrong = len(list_of_elements)
-    sorted_wrong_list = dict(sorted(wrong_list.items(), key = itemgetter(1), reverse = True))
+    sorted_wrong_list = dict(sorted(wrong_list.items(), key = lambda item: (item[1], item[0].islower()), reverse = True))
     extra_wrong_list = dict(sorted(extra_list.items(), key = itemgetter(1), reverse = True))
 
     return {'wrong_elements': sorted_wrong_list, 'extra_elements': extra_wrong_list, 'wrong_no': wrong }

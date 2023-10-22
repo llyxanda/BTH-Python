@@ -4,3 +4,8 @@ elsa 84.0 easy
 Mia 76.0 easy
 maria 46.67 medium
 alex2 8.0 easy
+bob 23.08 easy
+bubu 48.0 easy
+bibi 32.0 easy
+bubu 48.0 easy
+user 64.0 easy
