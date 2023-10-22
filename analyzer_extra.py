@@ -4,6 +4,9 @@ import random
 from operator import itemgetter
 
 def assign_animal(net_wpm):
+    '''
+    Function to assign an animal based on the user result net words per minute 
+    '''
     if net_wpm < 10:
          animal = 'Sengångare'
     elif net_wpm < 20:
@@ -32,10 +35,17 @@ def assign_animal(net_wpm):
 
 
 def generate_random_character():
+    '''
+    Function to generate a random characther for the test
+    '''
     characters = string.ascii_letters + string.digits + string.punctuation
     return random.choice(characters)
 
 def random_test(duration):
+    '''
+    Function to show the random charachter, get an input from the user
+    and calculate the imprecision, charachtes per second 
+    '''
     print(f"Typing test: You have {duration} seconds.")
 
     start_time = time.time()
@@ -43,10 +53,11 @@ def random_test(duration):
     error_count = {}
     
     while time.time()  < duration + start_time:
+        remaining_time = int(start_time + duration - time.time())
         random_char = generate_random_character()
-        print(f"Character to type: {random_char}")
+        print(f"There are {remaining_time} seconds left!\n Character to type: {random_char}")
         count_char += 1
-        user_input = input('Enter the charachter: ')
+        user_input = input("Enter the charachter and press [Enter]: ")
         input_char_count += 1
         if user_input != random_char:
             if random_char in error_count:
@@ -55,7 +66,7 @@ def random_test(duration):
                 error_count[random_char] = 1
 
     char_per_min = (input_char_count / duration) * 60
-    error_percentage = sum(value for value in error_count.values())
+    error_percentage = sum(value for value in error_count.values())/input_char_count
 
     sorted_errors = dict(sorted(error_count.items(), key = itemgetter(1), reverse=True))
     return char_per_min, error_percentage, sorted_errors
