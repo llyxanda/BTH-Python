@@ -4,7 +4,8 @@
 """
 This is the main program for the typing test application
 """
-import analyzer
+import analyzer_grund
+import analyzer_extra
 
 
 def main():
@@ -24,6 +25,7 @@ def main():
         print("2) Train medium")
         print("3) Train hard")
         print("4) Show highest scores")
+        print("5) Try a timed test with random charachters")
         print("q) Quit.")
  
 
@@ -36,19 +38,19 @@ def main():
         elif choice in level_files:
             file_name = level_files[choice]
             level = level_mapping[choice]             
-            result = analyzer.format_for_printing(file_name)
-            print(result)
+            result = analyzer_grund.get_final_report(file_name)
+            print(analyzer_grund.format_for_printing(result))
             input_username = input('Enter username to add to high scores: ')
-            analyzer.write_score_in_file(SCORE_FILE, input_username, result[1], level )
+            analyzer_grund.write_score_in_file(SCORE_FILE, input_username, result['word_precision'], level )
         
         elif choice == '4':
-            print(analyzer.show_sorted_results(SCORE_FILE))
+            print(analyzer_grund.show_sorted_results(SCORE_FILE))
         
         elif choice == '5':
             input_time = input('Enter the duration of the test in seconds: ')
             #try:
             timing = float(input_time)
-            test = analyzer.random_text(timing)
+            test = analyzer_extra.random_text(timing)
             print(test)
            # except TypeError:
             #    print('Please enter only numbers!')
