@@ -147,6 +147,7 @@ def get_final_report(file_name):
     gross_wpm = text_to_analize['count_input_words']/text_to_analize['time_elapsed']*60
     net_wpm = gross_wpm - report_wrong_words['wrong_no']/text_to_analize['time_elapsed']*60
     animal = analyzer_extra.assign_animal(net_wpm)
+    
     return {'word_precision' : word_precision, 'letter_precision' : letter_precision,
             'report_wrong_letters': report_wrong_letters['wrong_elements'], 
              'gross_wpm': gross_wpm, 'net_wpm':net_wpm, 'animal':animal, 'minutes' : minutes,

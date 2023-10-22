@@ -50,7 +50,7 @@ def main():
             input_time = input('Enter the duration of the test in seconds: ')
             #try:
             timing = float(input_time)
-            test = analyzer_extra.random_text(timing)
+            test = analyzer_extra.random_test(timing)
             print(test)
            # except TypeError:
             #    print('Please enter only numbers!')

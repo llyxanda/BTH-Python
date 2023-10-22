@@ -3,3 +3,4 @@ me 71.11 medium
 elsa 84.0 easy
 Mia 76.0 easy
 maria 46.67 medium
+alex2 8.0 easy
