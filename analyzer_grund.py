@@ -10,7 +10,7 @@ import time
 import analyzer_extra
 
 
-def zip_2_lists(fill_value, list1, list2):
+def get_differing_elements(fill_value, list1, list2):
     '''
     Function to catch all the wrong entered words in the file text vs.
     user input and store it as tuples of form ([file word], [input word])
@@ -52,15 +52,15 @@ def count_words_and_letters(line):
 
 def get_report_per_line(line):
     print(line)
-    wrong_words_tuples = []
+    wrong_wrong_words_tup = []
     line_input, elapsed_time = get_input_and_time()
     line_words, word_count, letter_count = count_words_and_letters(line)
     input_words = line_input.strip().split()
     if line_words != input_words:
-        wrong_words_tuples = zip_2_lists('', line_words, input_words)
+        wrong_wrong_words_tup = get_differing_elements('', line_words, input_words)
 
     return {
-        'words_tuples': wrong_words_tuples,
+        'wrong_words_tup': wrong_wrong_words_tup,
         'count_words': word_count,
         'count_input_words': len(input_words),
         'count_letters': letter_count,
@@ -75,7 +75,7 @@ def get_report_per_file(file):
     timing the total input.
     """
     file_report = {
-        'words_tuples': [],
+        'wrong_words_tup': [],
         'count_words': 0,
         'count_input_words': 0,
         'count_letters': 0,
@@ -86,44 +86,35 @@ def get_report_per_file(file):
             report = get_report_per_line(line)
             for key in report:
                 file_report[key] += report[key]
- 
     return file_report
 
 
-def get_tuples_for_letters(list_of_words):
+def get_differing_letters(list_of_words):
     '''
     Function to go one level beyond words and create tupple for lettes in the text vs.
     letters inputed by the user. This is to be able to uae the calculate_wrong function but for letters
     instead of words
     '''
-    new_list = []
+    letters_list  = []
     for tup in list_of_words:
-        new_list += zip_2_lists('',tup[0], tup[1])
+        letters_list += get_differing_elements('',tup[0], tup[1])
 
-    return new_list
+    return letters_list
 
 def get_wrong_entered_elements(list_of_elements):
     """
     Function to return the elemts (words or letters) entered wrong and how many times they occured
     """
     wrong_list = {}
-    extra_list = {}
     for element in list_of_elements:
              if element[0] != '': 
                 if element[0] in wrong_list:
                      wrong_list[element[0]] += 1
                 else:
                      wrong_list[element[0]] = 1
-             else: 
-                if element[1] in extra_list:
-                     extra_list[element[1]] += 1
-                else:
-                     extra_list[element[1]] = 1
-    wrong = len(list_of_elements)
     sorted_wrong_list = dict(sorted(wrong_list.items(), key = lambda item: (item[1], item[0].islower()), reverse = True))
-    extra_wrong_list = dict(sorted(extra_list.items(), key = itemgetter(1), reverse = True))
-
-    return {'wrong_elements': sorted_wrong_list, 'extra_elements': extra_wrong_list, 'wrong_no': wrong }
+    
+    return sorted_wrong_list
 
 def get_final_report(file_name):
     '''
@@ -136,23 +127,23 @@ def get_final_report(file_name):
     total_words = text_to_analize['count_words']
     total_letters = text_to_analize['count_letters']
 
-    report_wrong_words = get_wrong_entered_elements(text_to_analize['words_tuples'])
-    wrong_words_list = list(report_wrong_words['wrong_elements'].keys()) + \
-                       list(report_wrong_words['extra_elements'].keys())
-    words_to_compare = [word for word in text_to_analize['words_tuples'] 
-                        if (word[0] in wrong_words_list) or (word[1] in wrong_words_list)] 
-    words_to_letters = get_tuples_for_letters(words_to_compare)
+    count_wrong_words = len(text_to_analize['wrong_words_tup'])
+    wrong_words_list =  text_to_analize['wrong_words_tup'] 
+
+    words_to_letters = get_differing_letters(wrong_words_list)
     report_wrong_letters = get_wrong_entered_elements(words_to_letters)
-    word_precision = round((1-report_wrong_words['wrong_no']/total_words) * 100, 2)
-    letter_precision = round((1-report_wrong_letters['wrong_no']/total_letters) * 100, 2)
+    word_precision = round((1-count_wrong_words/total_words) * 100, 2)
+    letter_precision = round((1-len(words_to_letters)/total_letters) * 100, 2)
     gross_wpm = text_to_analize['count_input_words']/text_to_analize['time_elapsed']*60
-    net_wpm = gross_wpm - report_wrong_words['wrong_no']/text_to_analize['time_elapsed']*60
+    net_wpm = gross_wpm - count_wrong_words/text_to_analize['time_elapsed']*60
     animal = analyzer_extra.assign_animal(net_wpm)
     
     return {'word_precision' : word_precision, 'letter_precision' : letter_precision,
-            'report_wrong_letters': report_wrong_letters['wrong_elements'], 
+            'report_wrong_letters': report_wrong_letters, 
              'gross_wpm': gross_wpm, 'net_wpm':net_wpm, 'animal':animal, 'minutes' : minutes,
              'seconds':seconds}
+
+print(get_final_report("test.txt"))
 
 
 def format_for_printing(final_report_dict):

@@ -9,3 +9,4 @@ bubu 48.0 easy
 bibi 32.0 easy
 bubu 48.0 easy
 user 64.0 easy
+abbe 76.0 easy
