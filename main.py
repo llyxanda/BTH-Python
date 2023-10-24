@@ -4,8 +4,8 @@
 """
 This is the main program for the typing test application
 """
-import analyzer_grund
-import analyzer_extra
+import report_functions as rf
+import extra_functions as ef
 
 
 def main():
@@ -37,28 +37,23 @@ def main():
 
         elif choice in level_files:
             file_name = level_files[choice]
-            level = level_mapping[choice]
-            try:             
-                result = analyzer_grund.get_final_report(file_name)
-                input('Press [Enter] to see your results!')
-                print(analyzer_grund.format_for_printing(result))
-                input_username = input('Enter username to add to high scores: ')
-                analyzer_grund.write_score_in_file(SCORE_FILE, input_username, result['word_precision'], level )
-            except FileNotFoundError:
-                print('Sorry this level is unavailable. Try another level!')
+            level = level_mapping[choice]        
+            result = rf.get_test_results(file_name)
+            input('Press [Enter] to see your results!')
+            print(rf.format_for_printing(result))
+            input_username = input('Enter username to add to high scores: ')
+            rf.write_score_in_file(SCORE_FILE, input_username, result['word_precision'], level )
 
         elif choice == '4':
-            try:
-                print(analyzer_grund.show_sorted_results(SCORE_FILE))
-            except FileNotFoundError:
-                print('The score file seems to be missing!\n Maybe you are the first user')
+            print(rf.show_sorted_results(SCORE_FILE))
         
         elif choice == '5':
             input_time = input('Enter the duration of the test in seconds: ')
             try:
                 timing = float(input_time)
-                test = analyzer_extra.random_test(timing)
-                print(test)
+                test = ef.random_test(timing)
+                print(f"Error % : {test[1]} \n Char per min: {test[0]}")
+                print(f"Wrong entered chars: {test[2]}")
             except TypeError:
                 print('Please enter only numbers!')
 

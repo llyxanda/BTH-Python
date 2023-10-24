@@ -55,9 +55,9 @@ def random_test(duration):
     while time.time()  < duration + start_time:
         remaining_time = int(start_time + duration - time.time())
         random_char = generate_random_character()
-        print(f"There are {remaining_time} seconds left!\n Character to type: {random_char}")
+        print(f"There are {remaining_time} seconds left!\n Character to type: \n {random_char}")
         count_char += 1
-        user_input = input("Enter the charachter and press [Enter]: ")
+        user_input = input()
         input_char_count += 1
         if user_input != random_char:
             if random_char in error_count:
