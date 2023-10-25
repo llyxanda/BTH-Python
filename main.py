@@ -15,7 +15,7 @@ def main():
     stop = False
     level_files = {'1': 'easy.txt', '2': 'medium.txt', '3': 'hard.txt'}
     level_mapping = {'1': 'easy', '2': 'medium', '3': 'hard'}
-    SCORE_FILE = 'scores.txt'
+    score_file = 'scores.txt'
 
     def menu_choice():
         '''
@@ -42,17 +42,17 @@ def main():
             input('Press [Enter] to see your results!')
             print(rf.format_for_printing(result))
             input_username = input('Enter username to add to high scores: ')
-            rf.write_score_in_file(SCORE_FILE, input_username, result['word_precision'], level )
+            rf.write_score_in_file(score_file, input_username, result['word_precision'], level )
 
         elif choice == '4':
-            print(rf.show_sorted_results(SCORE_FILE))
+            print(rf.show_sorted_results(score_file))
         
         elif choice == '5':
             input_time = input('Enter the duration of the test in seconds: ')
             try:
                 timing = float(input_time)
                 test = ef.random_test(timing)
-                print(f"Error % : {test[1]} \n Char per min: {test[0]}")
+                print(f"Error % : {test[1]} \nChar per min: {test[0]}")
                 print(f"Wrong entered chars: {test[2]}")
             except TypeError:
                 print('Please enter only numbers!')

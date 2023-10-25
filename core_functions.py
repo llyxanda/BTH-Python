@@ -23,7 +23,7 @@ def get_differing_elements(fill_value, list1, list2):
         try:
             if list1[idx] != list2[idx]:
                 zipped_list.append((list1[idx], list2[idx]))
-        except:
+        except IndexError:
             if len(list1) > len(list2):
                 zipped_list.append((list1[idx], fill_value))
             else:
@@ -37,7 +37,7 @@ def get_input_and_time():
     the user to input
     '''
     start_time = time.time()
-    line_input = input('Your turn:: ')
+    line_input = input('Your turn: ')
     end_time = time.time()
     elapsed_time = end_time - start_time
     return line_input, elapsed_time
@@ -62,12 +62,14 @@ def get_wrong_entered_elements(list_of_elements):
     """
     wrong_list = {}
     for element in list_of_elements:
-             if element[0] != '': 
-                if element[0] in wrong_list:
-                     wrong_list[element[0]] += 1
-                else:
-                     wrong_list[element[0]] = 1
-    sorted_wrong_list = dict(sorted(wrong_list.items(), key = lambda item: (item[1], item[0].islower()), reverse = True))
+        if element[0] != '':
+            if element[0] in wrong_list:
+                wrong_list[element[0]] += 1
+            else:
+                wrong_list[element[0]] = 1
+    sorted_wrong_list = dict(sorted(wrong_list.items(), 
+                                    key = lambda item: (item[1], item[0].islower()), 
+                                    reverse = True))
     
     return sorted_wrong_list
 
@@ -94,7 +96,7 @@ def assign_animal(net_wpm):
     Function to assign an animal based on the user result net words per minute 
     '''
     if net_wpm < 10:
-         animal = 'Sengångare'
+        animal = 'Sengångare'
     elif net_wpm < 20:
         animal = 'Snigel'
     elif net_wpm < 30:

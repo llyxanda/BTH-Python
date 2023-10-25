@@ -12,3 +12,10 @@ user 64.0 easy
 abbe 76.0 easy
 alex 90.14 hard
 yo 95.56 medium
+bubu 64.0 easy
+mimi 56.0 easy
+uu 44.0 easy
+uui 46.48 hard
+q 48.0 easy
+bi 23.08 easy
+gaga 42.25 hard

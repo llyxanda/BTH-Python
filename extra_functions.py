@@ -1,8 +1,16 @@
 
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+"""
+This is a file with function for the extra assigment to create a typing test
+that generates a random character at a time that the user must input and
+calculates the percentage of mistakes and the speed.
+"""
+
 import time
 from operator import itemgetter
 import core_functions as cf
-
 
 def random_test(duration):
     '''

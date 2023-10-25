@@ -8,7 +8,6 @@ These functions use core functions in the calculations.
 """
 
 import core_functions as cf
-import extra_functions as ef
 
 
 def get_report_per_line(line):
@@ -33,7 +32,7 @@ def get_report_per_line(line):
         'time_elapsed': elapsed_time
     }
 
-def get_report_per_test(file):
+def get_report_per_test(file_name):
     """
     Function to sum up the calculations described above for all the lines in the file
     and thus get a report for the test.
@@ -46,11 +45,11 @@ def get_report_per_test(file):
         'time_elapsed': 0
         }
     try:
-        with open(file, 'r', encoding='utf-8') as file:
-            for line in file.readlines():
+        with open(file_name, 'r', encoding='utf-8') as file:
+            for line in file:
                 report = get_report_per_line(line)
-                for key in report:
-                    file_report[key] += report[key]
+                for key, value in report.items():
+                    file_report[key] += value
     except FileNotFoundError:
         print('This level file does not exist. Try another level!')
     return file_report
@@ -108,7 +107,7 @@ def write_score_in_file(file, username, score, level):
     try:
         with open(file, 'a', encoding='utf-8') as file_handle:
             file_handle.write(f"{username} {score} {level}\n")
-    except:
+    except (FileNotFoundError, PermissionError, IOError):
         print ('An error occured')
 
 def show_sorted_results(file):
@@ -160,5 +159,3 @@ def write_sorted_in_file(username, score, level):
         with open('scores.txt', 'w', encoding='utf-8') as file_handle:
             file_handle.write(f"{username} {score} {level}\n")
  """
-
-   
