@@ -56,6 +56,8 @@ def main():
                 print(f"Wrong entered chars: {test[2]}")
             except TypeError:
                 print('Please enter only numbers!')
+        else:
+            print("No such option! Please try again!")
 
     while not stop:
         menu_choice()
