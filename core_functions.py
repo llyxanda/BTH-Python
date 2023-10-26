@@ -15,8 +15,10 @@ import random
 def get_differing_elements(fill_value, list1, list2):
     '''
     Function to catch all the wrong entered words/letters in the file text vs.
-    user input and store it as tuples of form ([file word], [input word])
-    It retuns bot misspelings, and extra words/letters
+    user input and store it as tuples of form ([file word], [input word]).
+    It handles lists of different sizes by replacing the mising value in the
+    shorter list with a fill value. So for this case it retuns both misspelings,
+    and extra words/letters.
     '''
     zipped_list = []
     for idx in range(max(len(list1), len(list2))):
@@ -33,8 +35,8 @@ def get_differing_elements(fill_value, list1, list2):
 
 def get_input_and_time():
     '''
-    Function to get the user input and time how long it taked for
-    the user to input
+    Function to get the user input and time how long it took for
+    the user to input.
     '''
     start_time = time.time()
     line_input = input('Your turn: ')
@@ -56,9 +58,10 @@ def count_words_and_letters(line):
 
 def get_wrong_entered_elements(list_of_elements):
     """
-    Function to return the elemts (words or letters) entered wrong,
-    excluding the extra words that the user inputs (This is for the requirement
-    to list the wrong entered letters and occurences - so exclusing the letters that were extered extra)
+    Function to return the elements (words or letters) entered wrong,
+    excluding the extra words/letters that the user inputs (This is for the requirement
+    to list the wrong entered letters and occurences - so excluding the letters that were 
+    entered extra)
     """
     wrong_list = {}
     for element in list_of_elements:

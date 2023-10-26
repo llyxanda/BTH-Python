@@ -4,7 +4,7 @@
 """
 This is a file with functions used for getting the actual results on a test
 and reporting them - printing and writing scores in file.
-These functions use core functions in the calculations.
+These functions use core_functions in the calculations.
 """
 
 import core_functions as cf
